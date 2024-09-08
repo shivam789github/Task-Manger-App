@@ -12,7 +12,22 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const app = express();
-app.use(cors({ origin: 'https://task-manger-app-gb6t.onrender.com', credentials: true }));
+const allowedOrigins = ['https://task-manger-app-gb6t.onrender.com', 'http://localhost:3000'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true); // Origin allowed
+    } else {
+      callback(new Error('Not allowed by CORS')); // Origin not allowed
+    }
+  },
+  credentials: true, // Allow credentials to be included (cookies, authorization headers, etc.)
+}));
+
 app.use(express.json());
 app.use(cookieParser()); // Parse cookies
 app.use(session({
