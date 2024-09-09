@@ -5,7 +5,7 @@ const authenticateToken=require("./../MiddleWare/authenticateToken");
 const { useImperativeHandle } = require('react');
 
 const router = express.Router();
-router.use(authenticateToken);
+// router.use(authenticateToken);
 
 // Create a task
 router.post('/tasks', async (req, res) => {
