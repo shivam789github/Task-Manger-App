@@ -33,12 +33,12 @@ const TaskModal = ({
       if (task) {
         // Update task
         await axios.put(
-          `http://localhost:4000/api/taskroute/tasks/${task._id}`,
+          `https://task-manger-app-1.onrender.com/api/taskroute/tasks/${task._id}`,
           taskData
         );
       } else {
         // Create new task
-        await axios.post("http://localhost:4000/api/taskroute/tasks", taskData);
+        await axios.post("https://task-manger-app-1.onrender.com/api/taskroute/tasks", taskData);
       }
       refreshTasks(); // Refresh tasks after adding/editing
       closeModal(); // Close the modal after success

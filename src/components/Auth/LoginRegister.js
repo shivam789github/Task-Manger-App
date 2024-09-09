@@ -28,8 +28,8 @@ const LoginRegister = () => {
     }
 
     const url = isRegistering
-      ? "http://localhost:4000/api/register"
-      : "http://localhost:4000/api/login";
+      ? "https://task-manger-app-1.onrender.com/api/register"
+      : "https://task-manger-app-1.onrender.com/api/login";
 
     try {
       const { data } = await axios.post(url, {
@@ -65,7 +65,7 @@ const LoginRegister = () => {
 
   const handleGoogleLogin = () => {
     // Redirect the user to your backend's Google login route
-    window.location.href = "http://localhost:4000/api/google-login";
+    window.location.href = "https://task-manger-app-1.onrender.com/api/google-login";
   };
 
   return (

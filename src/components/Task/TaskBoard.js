@@ -22,7 +22,7 @@ const TaskBoard = () => {
   // Fetch tasks from backend
   const fetchTasks = async () => {
     const { data } = await axios.get(
-      "http://localhost:4000/api/taskroute/tasks"
+      "https://task-manger-app-1.onrender.com/api/taskroute/tasks"
     );
     const categorizedTasks = {
       todo: data.filter((task) => task.status === "todo"),
@@ -46,7 +46,7 @@ const TaskBoard = () => {
     // console.log("tasks", tasks);
     // console.log("taskId", taskId);
     if (taskToMove) {
-      await axios.put(`http://localhost:4000/api/taskroute/tasks/${taskId}`, {
+      await axios.put(`https://task-manger-app-1.onrender.com/api/taskroute/tasks/${taskId}`, {
         ...taskToMove,
         status: toColumn,
       });
@@ -83,7 +83,7 @@ const TaskBoard = () => {
     // console.log("searchTerm", searchTerm);
     // console.log("sortOption", sortOption);
     const { data } = await axios.get(
-      `http://localhost:4000/api/taskroute/tasksearch?search=${searchTerm}&sortBy=${sortOption}`,
+      `https://task-manger-app-1.onrender.com/api/taskroute/tasksearch?search=${searchTerm}&sortBy=${sortOption}`,
       { search: searchTerm, sortBy: sortOption }
     );
     const categorizedTasks = {

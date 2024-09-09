@@ -12,7 +12,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const app = express();
-const allowedOrigins = ['https://task-manger-app-gb6t.onrender.com', 'http://localhost:3000'];
+const allowedOrigins = ['https://task-manger-app-gb6t.onrender.com', 'http://localhost:3000','https://task-manger-app-1.onrender.com'];
 
 app.use(cors({
   origin: function (origin, callback) {

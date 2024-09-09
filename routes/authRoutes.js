@@ -109,7 +109,7 @@ router.get(
       sameSite: "strict", // Ensure the cookie is sent only with same-site requests
       maxAge: 3600000, // 1 hour
     });
-    res.redirect(`http://localhost:3000/taskBoard?token=${token}`);
+    res.redirect(`https://task-manger-app-gb6t.onrender.com/taskBoard?token=${token}`);
     
     
   }
