@@ -97,7 +97,7 @@ const TaskBoard = () => {
       {
         withCredentials: true, // Ensure cookies (including HttpOnly) are sent
       },
-      { search: searchTerm, sortBy: sortOption }
+      
     );
     const categorizedTasks = {
       todo: data.filter((task) => task.status === "todo"),

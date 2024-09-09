@@ -35,7 +35,7 @@ router.post("/register", async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true, // Prevent access to cookies via JavaScript
       secure: process.env.NODE_ENV === "production", // Use secure cookies in production
-      sameSite: "strict", // Ensure the cookie is sent only with same-site requests
+      sameSite: "None", // Ensure the cookie is sent only with same-site requests
       maxAge: 3600000, // 1 hour
     });
 
@@ -77,7 +77,7 @@ router.post("/login", async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true, // Prevent access to cookies via JavaScript
       secure: process.env.NODE_ENV === "production", // Use secure cookies in production
-      sameSite: "strict", // Ensure the cookie is sent only with same-site requests
+      sameSite: "None", // Ensure the cookie is sent only with same-site requests
       maxAge: 3600000, // 1 hour
     });
 
@@ -106,7 +106,7 @@ router.get(
     res.cookie("token", token, {
       httpOnly: true, // Prevent access to cookies via JavaScript
       secure: process.env.NODE_ENV === "production", // Use secure cookies in production
-      sameSite: "strict", // Ensure the cookie is sent only with same-site requests
+      sameSite: "None", // Ensure the cookie is sent only with same-site requests
       maxAge: 3600000, // 1 hour
     });
     res.redirect(`https://task-manger-app-gb6t.onrender.com/taskBoard?token=${token}`);
