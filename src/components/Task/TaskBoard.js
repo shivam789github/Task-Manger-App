@@ -18,11 +18,13 @@ const TaskBoard = () => {
   const [editingTask, setEditingTask] = useState(null); // For task editing
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("recent");
-  const [viewDetails,setViewDetails]=useState(false)
+  const [viewDetails, setViewDetails] = useState(false);
   // Fetch tasks from backend
   const fetchTasks = async () => {
     const { data } = await axios.get(
-      "https://task-manger-app-1.onrender.com/api/taskroute/tasks"
+      "https://task-manger-app-1.onrender.com/api/taskroute/tasks", {
+        withCredentials: true,  // Ensure cookies (including HttpOnly) are sent
+      }
     );
     const categorizedTasks = {
       todo: data.filter((task) => task.status === "todo"),
@@ -46,10 +48,16 @@ const TaskBoard = () => {
     // console.log("tasks", tasks);
     // console.log("taskId", taskId);
     if (taskToMove) {
-      await axios.put(`https://task-manger-app-1.onrender.com/api/taskroute/tasks/${taskId}`, {
-        ...taskToMove,
-        status: toColumn,
-      });
+      await axios.put(
+        `https://task-manger-app-1.onrender.com/api/taskroute/tasks/${taskId}`,
+        {
+          ...taskToMove,
+          status: toColumn,
+        },
+        {
+          withCredentials: true,  // Ensure cookies (including HttpOnly) are sent
+        }
+      );
       setTasks((prevTasks) => ({
         ...prevTasks,
         [fromColumn]: prevTasks[fromColumn].filter(
@@ -64,12 +72,12 @@ const TaskBoard = () => {
   };
   const handleEditTask = (task) => {
     setEditingTask(task);
-    setViewDetails(false)
+    setViewDetails(false);
     setIsModalOpen(true); // Open modal for editing task
   };
   const handleViewTask = (task) => {
     setEditingTask(task);
-    setViewDetails(true)
+    setViewDetails(true);
     setIsModalOpen(true); // Open modal for editing task
   };
 
@@ -78,12 +86,17 @@ const TaskBoard = () => {
     setEditingTask(null); // Reset editing task state
   };
   // console.log("categorizedTasks2", tasks);
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get("token");
 
   const fetchTasks2 = async () => {
     // console.log("searchTerm", searchTerm);
     // console.log("sortOption", sortOption);
     const { data } = await axios.get(
       `https://task-manger-app-1.onrender.com/api/taskroute/tasksearch?search=${searchTerm}&sortBy=${sortOption}`,
+      {
+        withCredentials: true, // Ensure cookies (including HttpOnly) are sent
+      },
       { search: searchTerm, sortBy: sortOption }
     );
     const categorizedTasks = {
@@ -100,15 +113,18 @@ const TaskBoard = () => {
     fetchTasks2();
   }, [searchTerm, sortOption]);
   const handleLogout = () => {
-    localStorage.removeItem('token'); // Remove token from local storage
+    localStorage.removeItem("token"); // Remove token from local storage
     // Redirect to login page (you can use react-router)
-    window.location.href = '/';
+    window.location.href = "/";
   };
 
   return (
     <div className="bg-gray-100 h-full">
       <div className="bg-blue-500 ml-2 mr-2 mb-4 mt-3 flex justify-end h-10">
-        <button className="bg-red-500 text-white text-center text-semibold p-2 mb-1 mt-1 mr-64 rounded-md" onClick={handleLogout}>
+        <button
+          className="bg-red-500 text-white text-center text-semibold p-2 mb-1 mt-1 mr-64 rounded-md"
+          onClick={handleLogout}
+        >
           Logout
         </button>
       </div>
@@ -150,8 +166,8 @@ const TaskBoard = () => {
           isOpen={isModalOpen}
           closeModal={handleCloseModal}
           refreshTasks={fetchTasks}
-          task={editingTask} 
-          viewDetails={viewDetails}// If editingTask is null, it will act as "Add Task"
+          task={editingTask}
+          viewDetails={viewDetails} // If editingTask is null, it will act as "Add Task"
         />
       )}
 

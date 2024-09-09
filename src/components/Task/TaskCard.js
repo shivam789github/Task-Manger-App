@@ -16,7 +16,9 @@ const TaskCard = ({ task, columnId, moveTask, refreshTasks, onEdit,onView }) => 
   const handleDelete = async () => {
     try {
       await axios.delete(
-        `https://task-manger-app-1.onrender.com/api/taskroute/tasks/${task._id}`
+        `https://task-manger-app-1.onrender.com/api/taskroute/tasks/${task._id}`, {
+          withCredentials: true,  // Ensure cookies (including HttpOnly) are sent
+        }
       );
       refreshTasks(); // Fetch tasks after deletion
     } catch (err) {

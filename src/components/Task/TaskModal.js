@@ -34,11 +34,15 @@ const TaskModal = ({
         // Update task
         await axios.put(
           `https://task-manger-app-1.onrender.com/api/taskroute/tasks/${task._id}`,
-          taskData
+          taskData, {
+            withCredentials: true,  // Ensure cookies (including HttpOnly) are sent
+          }
         );
       } else {
         // Create new task
-        await axios.post("https://task-manger-app-1.onrender.com/api/taskroute/tasks", taskData);
+        await axios.post("https://task-manger-app-1.onrender.com/api/taskroute/tasks", taskData, {
+          withCredentials: true,  // Ensure cookies (including HttpOnly) are sent
+        });
       }
       refreshTasks(); // Refresh tasks after adding/editing
       closeModal(); // Close the modal after success
